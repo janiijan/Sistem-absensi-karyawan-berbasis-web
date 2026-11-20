@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Absen · Sepa Indonesia</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body data-page="absen">
+  <div class="overlay"></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo">SI</div>
+        <div>
+          <strong>Sepa Indonesia</strong>
+          <small>Attendance</small>
+        </div>
+      </div>
+
+      <div class="nav-label">Menu Utama</div>
+      <ul class="nav-list">
+        <li>
+          <a href="dashboard.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="absen.html" class="active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Absen
+          </a>
+        </li>
+        <li>
+          <a href="riwayat.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+            Riwayat Absen
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-user">
+        <div class="avatar" data-user-initials>AP</div>
+        <div>
+          <strong data-user-name>Andi Pratama</strong>
+          <span data-user-id>KRY001</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <button class="icon-btn mobile-toggle" data-toggle-sidebar aria-label="Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <p class="date-line" id="live-date">—</p>
+          <h1>Absensi</h1>
+        </div>
+        <div class="topbar-actions">
+          <a href="riwayat.html" class="btn btn-outline" style="height:42px;padding:0 14px;">Riwayat</a>
+          <button class="btn btn-outline" data-logout style="height:42px;padding:0 14px;">Logout</button>
+        </div>
+      </div>
+
+      <section class="hero-card">
+        <div>
+          <h2>Halo, <span data-user-name>Andi Pratama</span></h2>
+          <p>Catat kehadiran Anda hari ini. Waktu yang digunakan adalah waktu server (WIB).</p>
+          <div class="meta-row" style="margin-top:16px;" id="status-hari-ini"></div>
+        </div>
+        <div class="clock-block">
+          <div class="time" id="live-clock">00:00:00</div>
+          <div class="tz">WIB · UTC+7</div>
+        </div>
+      </section>
+
+      <section class="grid-2">
+        <article class="card">
+          <h3>Absen Masuk</h3>
+          <p class="hint">Aktif jika Anda belum absen masuk hari ini. Batas tepat waktu: 08:00 WIB.</p>
+          <div class="location-box">
+            <div class="pin">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </div>
+            <div>
+              <strong>Kantor Pusat — Jakarta Selatan</strong>
+              <span>Jl. Jenderal Sudirman No. 10</span>
+            </div>
+          </div>
+          <p style="margin-bottom:16px;color:var(--ink-soft);font-size:0.9rem;">Status: <strong id="info-masuk">Belum tercatat</strong></p>
+          <button id="btn-masuk" class="btn btn-primary btn-lg btn-block">Absen Masuk</button>
+          <p class="tips">Tips: Pastikan Anda siap bekerja sebelum menekan tombol absen masuk.</p>
+        </article>
+
+        <article class="card">
+          <h3>Absen Pulang</h3>
+          <p class="hint">Aktif setelah absen masuk berhasil. Durasi kerja dihitung otomatis.</p>
+          <div class="location-box">
+            <div class="pin">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </div>
+            <div>
+              <strong>Lokasi terdeteksi</strong>
+              <span>Area kantor · absensi berbasis web</span>
+            </div>
+          </div>
+          <p style="margin-bottom:16px;color:var(--ink-soft);font-size:0.9rem;">Status: <strong id="info-pulang">Belum tersedia</strong></p>
+          <button id="btn-pulang" class="btn btn-success btn-lg btn-block" disabled>Absen Pulang</button>
+          <p class="tips">Absen pulang hanya dapat dilakukan sekali per hari.</p>
+        </article>
+      </section>
+
+      <section class="card">
+        <h3>Jadwal Kerja</h3>
+        <p class="hint">Referensi jam kerja standar perusahaan.</p>
+        <div class="grid-2" style="margin:0;">
+          <div class="location-box" style="margin:0;">
+            <div class="pin">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+            </div>
+            <div>
+              <strong>Jam Masuk</strong>
+              <span>08:00 WIB</span>
+            </div>
+          </div>
+          <div class="location-box" style="margin:0;">
+            <div class="pin">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+            </div>
+            <div>
+              <strong>Jam Pulang</strong>
+              <span>17:00 WIB</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>
